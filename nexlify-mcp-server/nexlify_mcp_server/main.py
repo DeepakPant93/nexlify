@@ -17,7 +17,7 @@ MCP_TIMEOUT = os.environ["MCP_TIMEOUT"] = "300" # 5 minutes
 DEFAULT_ERROR_MESSAGE = "Sorry, we couldn't process your request to the Netlify API server at this time. Please try again later."
 
 @mcp.tool()
-def netlify_search(query: str) -> str:
+def nexlify_search(query: str) -> str:
     """    Search for a query using the Netlify API.
     Args:
         query (str): The search query.
