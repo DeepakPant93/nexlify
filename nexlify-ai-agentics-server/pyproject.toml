@@ -1,0 +1,23 @@
+[project]
+name = "nexlify_ai_agentics_server"
+version = "0.1.0"
+description = "nexlify-ai-agentics-server using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<=3.13"
+dependencies = [
+    "crewai[tools]>=0.86.0,<1.0.0",
+    "fastapi>=0.116.1",
+    "uvicorn>=0.35.0",
+]
+
+[project.scripts]
+nexlify_ai_agentics_server = "nexlify_ai_agentics_server.main:run"
+run_crew = "nexlify_ai_agentics_server.main:run"
+train = "nexlify_ai_agentics_server.main:train"
+replay = "nexlify_ai_agentics_server.main:replay"
+test = "nexlify_ai_agentics_server.main:test"
+app= "nexlify_ai_agentics_server.main:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
