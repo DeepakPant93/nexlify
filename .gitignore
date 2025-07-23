@@ -205,3 +205,21 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Linux
+*~
+.nfs*
+
+# Terraform
+.terraform.tfstate
+.terraform.tfstate.backup
+.terraform.lock.hcl
+.terraform
+
