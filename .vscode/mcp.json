@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "nexlify-mcp-server": {
+      "command": "/opt/anaconda3/bin/nexlify_mcp_server",
+      "type": "stdio"
+    }
+  }
+}

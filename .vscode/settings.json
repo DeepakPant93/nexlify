@@ -4,5 +4,18 @@
     "**/*.pyc": true,
     "**/.venv": true,
 
-  }
+  },
+  "chat.mcp.discovery.enabled": true,
+  "chat.mcp.serverSampling": {
+    "nexlify/.vscode/mcp.json: nexlify-mcp-server": {
+      "allowedModels": [
+        "github.copilot-chat/gpt-4.1",
+        "github.copilot-chat/claude-3.5-sonnet",
+        "github.copilot-chat/gemini-2.0-flash-001",
+        "github.copilot-chat/gpt-4o",
+        "github.copilot-chat/o3-mini"
+      ]
+    }
+  },
+
 }

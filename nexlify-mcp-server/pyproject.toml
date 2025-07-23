@@ -1,0 +1,19 @@
+[project]
+name = "nexlify-mcp-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Deepak Pant", email = "mail2deepakpant@gmail.com" }]
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.12.1",
+]
+
+[project.scripts]
+nexlify_mcp_server = "nexlify_mcp_server.main:run"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
