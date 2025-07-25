@@ -1,8 +1,20 @@
 {
   "servers": {
     "nexlify-mcp-server": {
-      "command": "/opt/anaconda3/bin/nexlify_mcp_server",
-      "type": "stdio"
+      "type": "stdio",
+      "command": "nexlify_mcp_server",
+      "env": {
+        "NEXLIFY_API_BASE_URI": "${input:nexlify-app-uri}",
+      }
+      
     }
-  }
+  },
+  "inputs": [
+    {
+      "id": "nexlify-app-uri",
+      "type": "promptString",
+      "description": "Enter the URL of your Netlify app.",
+      "default": "http://0.0.0.0:8000",
+    },
+  ],
 }
