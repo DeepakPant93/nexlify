@@ -6,7 +6,6 @@ from utils.ingest_util import extract_text_from_file
 from fastapi import APIRouter, Depends, HTTPException, status
 from core.ingest_controller import fetch_and_ingest_confluence_pages, ingest_file_to_qdrant
 
-
 router = APIRouter()
 
 
@@ -14,6 +13,7 @@ router = APIRouter()
 def ingest_confluence_docs():
     fetch_and_ingest_confluence_pages()
     return {"status": "success", "source": "confluence"}
+
 
 
 @router.post("/admin/docs")

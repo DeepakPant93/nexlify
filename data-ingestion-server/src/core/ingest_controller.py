@@ -10,6 +10,7 @@ from tenacity import retry, wait_fixed, stop_after_attempt, retry_if_exception_t
 from google.auth.transport.requests import Request
 from google.oauth2.service_account import Credentials
 import google.generativeai as genai
+from service.embedding_service import GeminiEmbedder
 
 # --- Configuration ---
 CONFLUENCE_BASE_URL = os.getenv("CONFLUENCE_BASE_URL")
@@ -21,8 +22,10 @@ DOC_COLLECTION = os.getenv("DOC_COLLECTION", "dev_docs")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # --- Qdrant Setup ---
-qdrant = QdrantClient(url=os.getenv("QDRANT_URL", "http://localhost:6333"))
+qdrant = QdrantClient(host=os.getenv("QDRANT_HOST", "localhost"),
+                      port=int(os.getenv("QDRANT_PORT", 6333)))
 
+gemini_embedder = GeminiEmbedder()
 # --- Logging Setup ---
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("confluence_ingest")
@@ -31,18 +34,6 @@ logger = logging.getLogger("confluence_ingest")
 genai.configure(api_key=GEMINI_API_KEY)
 
 
-def get_gemini_embedding(text: str) -> List[float]:
-    model = genai.GenerativeModel("embedding-001")
-    try:
-        res = model.embed_content(
-            content=text,
-            task_type="RETRIEVAL_DOCUMENT",
-            title="Document Chunk"
-        )
-        return res.get("embedding", [])
-    except Exception as e:
-        logging.exception("Failed to get Gemini embedding")
-        raise
 
 # --- Retryable GET ---
 
@@ -70,6 +61,7 @@ def fetch_and_ingest_confluence_pages():
     limit = 25
     total_uploaded = 0
 
+    ensure_collection_exists(CONFLUENCE_COLLECTION, 768)
     while True:
         params = {
             "spaceKey": CONFLUENCE_SPACE_KEY,
@@ -97,7 +89,7 @@ def fetch_and_ingest_confluence_pages():
 
             text_content = clean_html_text(html_content)
             full_text = f"{title}\n\n{text_content}"
-            vector = get_gemini_embedding(full_text)
+            vector = gemini_embedder.get_embedding(full_text)
 
             point = PointStruct(
                 id=str(uuid4()),
@@ -111,7 +103,6 @@ def fetch_and_ingest_confluence_pages():
             )
             points.append(point)
 
-        ensure_collection_exists(CONFLUENCE_COLLECTION, len(points[0].vector))
         qdrant.upsert(collection_name=CONFLUENCE_COLLECTION, points=points)
         total_uploaded += len(points)
         logger.info(f"Uploaded {len(points)} pages (Total: {total_uploaded})")
@@ -134,21 +125,18 @@ def clean_html_text(html: str) -> str:
 # --- Collection Ensurer ---
 
 
-def ensure_collection_exists(collection_name: str, vector_size: int):
+def ensure_collection_exists(collection_name: str, dim: int = 384):
     try:
         collections = qdrant.get_collections().collections
-        if collection_name not in [c.name for c in collections]:
-            logging.info(f"Creating new Qdrant collection: {collection_name}")
-            qdrant.create_collection(
+        names = [col.name for col in collections]
+        if collection_name not in names:
+            qdrant.recreate_collection(
                 collection_name=collection_name,
                 vectors_config=VectorParams(
-                    size=vector_size,
-                    distance=Distance.COSINE
-                )
+                    size=dim, distance=Distance.COSINE),
             )
     except Exception as e:
-        logging.exception("Failed to ensure Qdrant collection")
-        raise
+        raise RuntimeError(f"Failed to ensure Qdrant collection: {e}")
 
 # --- Generic File Ingestion ---
 
@@ -166,10 +154,12 @@ async def ingest_file_to_qdrant(content: str, filename: str, collection_name: st
             i += chunk_size - overlap
 
         logging.info(f"Split content into {len(chunks)} chunks")
+        ensure_collection_exists(
+            collection_name, 768)
 
         points = []
         for idx, chunk in enumerate(chunks):
-            vector = get_gemini_embedding(chunk)
+            vector = gemini_embedder.get_embedding(chunk)
             points.append(
                 PointStruct(
                     id=str(uuid4()),
@@ -183,7 +173,6 @@ async def ingest_file_to_qdrant(content: str, filename: str, collection_name: st
                 )
             )
 
-        ensure_collection_exists(collection_name, len(points[0].vector))
         qdrant.upsert(collection_name=collection_name, points=points)
         logging.info(
             f"Successfully ingested {len(points)} chunks from {filename} into {collection_name}")

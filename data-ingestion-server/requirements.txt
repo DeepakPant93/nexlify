@@ -33,5 +33,5 @@ pymupdf
 pdfminer.six
 indic-transliteration>=1.5
 yt_dlp
-google-generativeai
+google-generativeai >= 0.4.0
 tenacity>=8.2.2

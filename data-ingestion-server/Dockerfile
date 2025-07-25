@@ -33,9 +33,10 @@ RUN pip install --upgrade pip setuptools wheel
 RUN pip install -r requirements.txt
 
 COPY . .
+ENV PYTHONPATH=/app/src
 
 ENV PORT=7860
 
 EXPOSE 7860
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "7860"]

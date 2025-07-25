@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "7861:7860"
+    working_dir: /app
+    environment:
+      - PYTHONPATH=/app/src
+      - QDRANT_HOST=qdrant
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - QDRANT_PORT=6333
+      # add any other required env vars
+    env_file:
+      - .env
+    volumes:
+      - .:/app  # So source changes reflect without rebuild
+    depends_on:
+      - qdrant
+
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6335:6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+volumes:
+  qdrant_storage:
