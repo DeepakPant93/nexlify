@@ -9,9 +9,9 @@ mcp = FastMCP("weather")
 logging.basicConfig(level=logging.INFO)
 
 # Constants
-NEXLIFY_API_BASE = "http://0.0.0.0:8000"
 USER_AGENT = "nexlify_mcp_server/1.0"
-MCP_TIMEOUT = os.environ["MCP_TIMEOUT"] = "300" # 5 minutes
+NEXLIFY_API_BASE_URI = os.environ.get("NEXLIFY_API_BASE_URI", "http://0.0.0.0:8000")
+MCP_TIMEOUT = os.environ.get("MCP_TIMEOUT", "500") # 500 seconds
 
 
 DEFAULT_ERROR_MESSAGE = "Sorry, we couldn't process your request to the Netlify API server at this time. Please try again later."
@@ -24,7 +24,7 @@ def nexlify_search(query: str) -> str:
     Returns:
         str: The search results.
     """
-    res = httpx.post(f"{NEXLIFY_API_BASE}/search", json={"query": query}, headers={"User-Agent": USER_AGENT}, timeout=int(MCP_TIMEOUT)).json()
+    res = httpx.post(f"{NEXLIFY_API_BASE_URI}/search", json={"query": query}, headers={"User-Agent": USER_AGENT}, timeout=int(MCP_TIMEOUT)).json()
     return res.get("response", DEFAULT_ERROR_MESSAGE)
 
 
