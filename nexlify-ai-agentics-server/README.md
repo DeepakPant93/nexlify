@@ -1,4 +1,4 @@
-# NexlifyAiAgenticsServer Crew
+# Nexlify AI Agentics Server Crew
 
 Welcome to the NexlifyAiAgenticsServer Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
 
@@ -18,26 +18,47 @@ Next, navigate to your project directory and install the dependencies:
 ```bash
 crewai install
 ```
+
 ### Customizing
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+**Add your environment variables into the `.env` file, taking reference from the `.env.example` file:**
+
+- `MODEL=gemini/gemini-1.5-flash`
+- `MODEL_API_KEY=<model_api_key>` # Your API key here. Generate a new API key for the GEMINI model from the [AI Studio](https://aistudio.google.com/app/apikey) website.
 
 - Modify `src/nexlify_ai_agentics_server/config/agents.yaml` to define your agents
 - Modify `src/nexlify_ai_agentics_server/config/tasks.yaml` to define your tasks
-- Modify `src/nexlify_ai_agentics_server/crew.py` to add your own logic, tools and specific args
+- Modify `src/nexlify_ai_agentics_server/crew.py` to add your own logic, tools, and specific args
 - Modify `src/nexlify_ai_agentics_server/main.py` to add custom inputs for your agents and tasks
 
 ## Running the Project
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+To kickstart your crew of AI agents and begin task execution, use the following make commands from the root folder of your project:
 
 ```bash
-$ crewai run
+make run
 ```
 
-This command initializes the nexlify-ai-agentics-server Crew, assembling the agents and assigning them tasks as defined in your configuration.
+This command initializes the nexlify-ai-agentics-server Crew, assembling the agents and assigning them tasks as defined in your configuration. The Swagger documentation will be available at [http://0.0.0.0:8000/docs](http://0.0.0.0:8000/docs).
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+### Additional Make Commands
+
+- `make build`                          Build the application
+- `make bake-container`                 Build Docker container
+- `make run-container MODEL_API_KEY=your_key`  Run Docker container
+- `make container-push`                 Push container to registry
+- `make bake-container-and-push`        Build and push container
+- `make bake`                           Setup development environment
+
+## Deployment
+
+To deploy the application, ensure you have added the required environment variables to the `.env` file as described in the Customizing section. Then, use the following command to run the app locally:
+
+```bash
+make run
+```
+
+For containerized deployment, use the `make bake-container` and `make run-container MODEL_API_KEY=your_key` commands to build and run the Docker container.
 
 ## Understanding Your Crew
 
@@ -45,10 +66,8 @@ The nexlify-ai-agentics-server Crew is composed of multiple AI agents, each with
 
 ## Support
 
-For support, questions, or feedback regarding the NexlifyAiAgenticsServer Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+For additional help or inquiries, please refer to the [crewAI documentation](https://crewai.com) or reach out to the community for support.
 
-Let's create wonders together with the power and simplicity of crewAI.
+## License
+
+This project is released under the [MIT License](../LICENSE).
