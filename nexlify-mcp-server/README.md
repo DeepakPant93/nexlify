@@ -11,7 +11,7 @@ Key features include:
 - Restriction to whitelisted URLs for safe and targeted internet searches.
 - Easy setup for local running and IDE integration.
 
-This package is part of the Nexlify MVP, which leverages technologies like FastAPI, CrewAI, and OpenAI for embedding generation.
+This package is part of the Nexlify MVP, which leverages technologies like FastAPI, CrewAI, and Gemini AI for embedding generation.
 
 ## Installation
 

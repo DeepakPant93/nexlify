@@ -15,7 +15,7 @@ build: ## Build the application
 	uv build
 
 install: ## Install the local build package (For Development only) 
-	uv pip install --python $(PYTHON_PATH) dist/nexlify_mcp_server-0.1.0-py3-none-any.whl
+	uv pip install --python $(PYTHON_PATH) dist/nexlify_mcp_server-0.1.1-py3-none-any.whl
 
 publish: build ## Publish the application
 	uv publish --token $(PYPI_TOKEN)
