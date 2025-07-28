@@ -25,6 +25,7 @@ jobs:
               run: echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
 
             - name: Build and Push Docker Image
+              working-directory: nexlify-ai-agentics-server
               run: |
                 docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -f Dockerfile .
                 docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
