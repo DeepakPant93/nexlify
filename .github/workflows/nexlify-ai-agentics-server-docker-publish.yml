@@ -27,7 +27,7 @@ jobs:
             - name: Build and Push Docker Image
               working-directory: nexlify-ai-agentics-server
               run: |
-                docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -f Dockerfile .
+                docker build --no-cache -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -f Dockerfile .
                 docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
             - name: Clean up Docker system
