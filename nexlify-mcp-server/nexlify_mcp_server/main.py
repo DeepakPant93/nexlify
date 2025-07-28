@@ -5,7 +5,7 @@ import logging
 import os
 
 # Initialize FastMCP server
-mcp = FastMCP("weather")
+mcp = FastMCP(name = "Nexlify MCP Server", version = "0.1.3")
 logging.basicConfig(level=logging.INFO)
 
 # Constants
@@ -14,11 +14,11 @@ NEXLIFY_API_BASE_URI = os.environ.get("NEXLIFY_API_BASE_URI", "http://0.0.0.0:80
 MCP_TIMEOUT = os.environ.get("MCP_TIMEOUT", "500") # 500 seconds
 
 
-DEFAULT_ERROR_MESSAGE = "Sorry, we couldn't process your request to the Netlify API server at this time. Please try again later."
+DEFAULT_ERROR_MESSAGE = "Sorry, we couldn't process your request to the Nexlify API server at this time. Please try again later."
 
-@mcp.tool()
+@mcp.tool(name = "nexlify_search", description="Search confluence pages using the Nexlify API")
 def nexlify_search(query: str) -> str:
-    """    Search for a query using the Netlify API.
+    """    Search confluence pages using the Nexlify API.
     Args:
         query (str): The search query.
     Returns:
