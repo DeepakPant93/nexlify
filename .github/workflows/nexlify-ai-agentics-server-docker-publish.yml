@@ -6,7 +6,7 @@ on:
     paths: [ "nexlify-ai-agentics-server/**" ]
 
 env:
-  REGISTRY: docker.io/deepak93p
+  REGISTRY: deepak93p
   IMAGE_NAME: nexlify-ai-agentics-server
 
 jobs:
