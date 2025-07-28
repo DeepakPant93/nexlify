@@ -82,6 +82,21 @@ The module creates the following infrastructure:
 | 6333 | Qdrant REST | Private Instance | Qdrant vector database REST API |
 | 6334 | Qdrant gRPC | Private Instance | Qdrant vector database gRPC API |
 
+## Infrastructure Deployment
+
+### Terraform Cloud
+
+To **create or update** the infrastructure for the Nexlify app, follow these steps:
+
+1. Go to the [Terraform Cloud Nexlify Workspace](https://app.terraform.io/app/dpant_academy/workspaces/nexlify-dev).
+2. Ensure you are in the correct workspace: `nexlify-dev`.
+3. Click on **"+ New Run"**.
+4. This will trigger the Terraform **plan and apply** pipeline.
+5. Terraform will automatically create or update the infrastructure as defined in the configuration.
+
+> 💡 Make sure all necessary variables and credentials are correctly set in the workspace before starting a new run.
+
+
 ## Post-Deployment Setup
 
 ### 1. Deploy Nexlify Application
