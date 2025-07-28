@@ -1,4 +1,4 @@
-name: Manual PyPI Publish
+name: Nexlify MCP Server Package Publish
 
 on:
   workflow_dispatch:
