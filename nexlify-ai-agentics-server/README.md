@@ -60,6 +60,12 @@ make run
 
 For containerized deployment, use the `make bake-container` and `make run-container MODEL_API_KEY=your_key` commands to build and run the Docker container.
 
+## DockerHub
+
+The official Docker image for the Nexlify AI Agentics Server is available on DockerHub:
+
+📦 **[deepak93p/nexlify-ai-agentics-server](https://hub.docker.com/r/deepak93p/nexlify-ai-agentics-server)**
+
 ## Understanding Your Crew
 
 The nexlify-ai-agentics-server Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
