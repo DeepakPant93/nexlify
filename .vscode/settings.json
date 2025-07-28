@@ -3,6 +3,12 @@
     "**/__pycache__": true,
     "**/*.pyc": true,
     "**/.venv": true,
+    "**/.terraform": true,
+    "**/.terraform.lock.hcl": true,
+    "**/dist": true,
+    "**/.terraform.tfstate": true,
+    "**/.terraform.tfstate.backup": true,
+    "**/.terraform.tfstate.lock.info": true
 
   },
   "chat.mcp.discovery.enabled": true,
