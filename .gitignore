@@ -224,3 +224,7 @@ ehthumbs.db
 .terraform
 .terraform/modules/
 .terraform.tfstate.lock.info
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+.terraform.tfvars.json
