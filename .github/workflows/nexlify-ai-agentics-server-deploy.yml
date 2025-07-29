@@ -1,0 +1,31 @@
+name: Deploy Nexlify AI Agentics Server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run container on Azure VM
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.APP_VM_HOST }}
+        username: ${{ secrets.APP_VM_USER }}
+        password: ${{ secrets.APP_VM_PASSWORD }}
+        port: 22
+        script: |
+          # Stop and remove existing container if it exists
+          docker stop nexlify-ai-agentics-server || true
+          docker rm nexlify-ai-agentics-server || true
+
+          # Pull latest image (optional, if not local)
+          docker pull deepak93p/nexlify-ai-agentics-server
+
+          # Run the container
+          docker run -d \
+            --name nexlify-ai-agentics-server \
+            -p 8000:8000 \
+            -e MODEL_API_KEY=${{ secrets.MODEL_API_KEY }} \
+            deepak93p/nexlify-ai-agentics-server

@@ -16,14 +16,14 @@ resource "azurerm_network_interface_security_group_association" "assoc_private" 
 }
 
 resource "azurerm_linux_virtual_machine" "private" {
-  name                  = "${var.name_prefix}-vm-private"
-  location              = azurerm_resource_group.this.location
-  resource_group_name   = azurerm_resource_group.this.name
-  size                  = var.vm_size
-  admin_username        = var.admin_username
-  admin_password        = var.admin_password
+  name                            = "${var.name_prefix}-vm-private"
+  location                        = azurerm_resource_group.this.location
+  resource_group_name             = azurerm_resource_group.this.name
+  size                            = var.vm_size
+  admin_username                  = var.admin_username
+  admin_password                  = var.admin_password
   disable_password_authentication = false
-  network_interface_ids = [azurerm_network_interface.private.id]
+  network_interface_ids           = [azurerm_network_interface.private.id]
 
 
   os_disk {
@@ -40,7 +40,7 @@ resource "azurerm_linux_virtual_machine" "private" {
     version   = "latest"
   }
 
-  user_data = base64encode(file("user-data/install_docker.sh"))
+  user_data = base64encode(file("user-data/db.sh"))
 
   tags = var.tags
 }

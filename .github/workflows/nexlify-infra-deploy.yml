@@ -1,0 +1,49 @@
+name: Deploy Nexlify Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      workspace:
+        description: "Select Terraform Cloud workspace"
+        required: false
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - uat
+          - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}  # Your Terraform Cloud team API token secret
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.x"  # Match your required_version
+
+      - name: Select Terraform workspace
+        run: |
+          terraform workspace select ${{ github.event.inputs.workspace }} || terraform workspace new ${{ github.event.inputs.workspace }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=plan.tfout
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve plan.tfout
+
+      - name: Print Terraform Outputs
+        run: |
+          echo "Public VM IP: $(terraform output -raw public_vm_ip)"
+          echo "Private VM Private IP: $(terraform output -raw private_vm_private_ip)"
+          echo "VNet ID: $(terraform output -raw vnet_id)"
+

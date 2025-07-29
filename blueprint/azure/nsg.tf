@@ -45,13 +45,13 @@ resource "azurerm_network_security_rule" "db_port" {
 
 resource "azurerm_network_security_rule" "db_ssh" {
   name                        = "allow-ssh"
-  priority                    = 120  # Low priority, adjustable
+  priority                    = 120 # Low priority, adjustable
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "22"
-  source_address_prefix       = "*"  # Restrict to your IP/CIDR for security
+  source_address_prefix       = "*" # Restrict to your IP/CIDR for security
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.this.name
   network_security_group_name = azurerm_network_security_group.db.name
@@ -59,13 +59,13 @@ resource "azurerm_network_security_rule" "db_ssh" {
 
 resource "azurerm_network_security_rule" "app_ssh" {
   name                        = "allow-ssh"
-  priority                    = 110  # After app ports, adjustable
+  priority                    = 110 # After app ports, adjustable
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "22"
-  source_address_prefix       = "*"  # Restrict to your IP/CIDR for security
+  source_address_prefix       = "*" # Restrict to your IP/CIDR for security
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.this.name
   network_security_group_name = azurerm_network_security_group.app.name
