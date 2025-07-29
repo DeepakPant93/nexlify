@@ -5,7 +5,7 @@ services:
     build: .
     ports:
       - "7860:7860"
-    env_file: .env
+    env_file: ./data-ingestion-server/.env
     environment:
       - QDRANT_HOST=qdrant
       # Add other env vars as needed

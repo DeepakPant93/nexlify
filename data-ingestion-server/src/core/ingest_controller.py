@@ -1,3 +1,4 @@
+from typing import List
 from qdrant_client.models import PointStruct, VectorParams, Distance
 import os
 import logging
@@ -181,3 +182,16 @@ async def ingest_file_to_qdrant(content: str, filename: str, collection_name: st
         logging.exception(
             f"Failed to ingest file {filename} into {collection_name}")
         raise
+
+
+# Utility method to get embedding for a given text
+
+
+def get_embedding(text: str) -> List[float]:
+    try:
+        # Use Gemini embedder (could expand with fallback logic here)
+        vector = gemini_embedder.get_embedding(text)
+        return vector
+    except Exception as e:
+        # Handle/embed fallback or error logging
+        raise RuntimeError(f"Embedding generation failed: {e}")
