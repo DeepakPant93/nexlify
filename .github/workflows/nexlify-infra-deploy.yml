@@ -16,6 +16,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: blueprint/azure
     env:
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}  # Your Terraform Cloud team API token secret
 
