@@ -36,7 +36,7 @@ jobs:
 
       - name: Select Terraform workspace
         run: |
-          terraform workspace select ${{ github.event.inputs.workspace }} || terraform workspace new ${{ github.event.inputs.workspace }}
+          terraform workspace select -or-create ${{ github.event.inputs.workspace }}
 
       - name: Terraform Plan
         run: terraform plan -out=plan.tfout
