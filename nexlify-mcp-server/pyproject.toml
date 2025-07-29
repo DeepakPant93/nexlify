@@ -1,18 +1,25 @@
 [project]
 name = "nexlify-mcp-server"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.1.5"
+description = "The Nexlify MCP Server is a lightweight Python package designed to integrate GitHub Copilot with the Nexlify AI system."
 readme = "README.md"
 requires-python = ">=3.10"
-license = "MIT"
+license = { text = "MIT License" }
 authors = [{ name = "Deepak Pant", email = "mail2deepakpant@gmail.com" }]
 dependencies = [
     "httpx>=0.28.1",
     "mcp[cli]>=1.12.1",
 ]
 
+[project.urls]
+Repository = "https://github.com/DeepakPant93/nexlify"
+Documentation = "https://github.com/DeepakPant93/nexlify/tree/main/nexlify-mcp-server"
+Homepage = "https://github.com/DeepakPant93/nexlify/blob/main/nexlify-mcp-server/README.md"
+
 [project.scripts]
 nexlify_mcp_server = "nexlify_mcp_server.main:run"
+
+
 
 [build-system]
 requires = ["hatchling"]

@@ -4,9 +4,9 @@ Welcome to the NexlifyAiAgenticsServer Crew project, powered by [crewAI](https:/
 
 ## Installation
 
-Ensure you have Python >=3.10 <=3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Ensure you have Python >=3.10 <=3.12 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
 
-First, if you haven't already, install uv:
+First, if you haven't already, install uv: 
 
 ```bash
 pip install uv
@@ -59,6 +59,12 @@ make run
 ```
 
 For containerized deployment, use the `make bake-container` and `make run-container MODEL_API_KEY=your_key` commands to build and run the Docker container.
+
+## DockerHub
+
+The official Docker image for the Nexlify AI Agentics Server is available on DockerHub:
+
+📦 **[deepak93p/nexlify-ai-agentics-server](https://hub.docker.com/r/deepak93p/nexlify-ai-agentics-server)**
 
 ## Understanding Your Crew
 
