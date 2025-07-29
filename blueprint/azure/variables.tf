@@ -5,6 +5,26 @@ variable "subscription_id" {
 
 }
 
+variable "client_id" {
+  description = "Azure client ID"
+  type        = string
+
+}
+
+variable "client_secret" {
+  description = "Azure client secret"
+  type        = string
+
+}
+
+variable "tenant_id" {
+  description = "Azure tenant ID"
+  type        = string
+  default     = "2e714ce2-9880-4896-a5ff-7754ff57fd86"
+
+}
+
+
 variable "name_prefix" {
   description = "Prefix for all resources"
   type        = string

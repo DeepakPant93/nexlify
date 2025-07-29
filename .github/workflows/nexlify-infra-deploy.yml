@@ -25,10 +25,10 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -out=plan.tfout -var="admin_password=${{ secrets.APP_VM_PASSWORD }}"
+        run: terraform plan -out=plan.tfout -var="admin_password=${{ secrets.APP_VM_PASSWORD }}" -var="client_id=${{ secrets.ARM_CLIENT_ID }}" -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}"
 
       - name: Terraform Apply
-        run: terraform apply -var="admin_password=${{ secrets.APP_VM_PASSWORD }}" -auto-approve plan.tfout
+        run: terraform apply -var="admin_password=${{ secrets.APP_VM_PASSWORD }}" -var="client_id=${{ secrets.ARM_CLIENT_ID }}" -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}" -auto-approve plan.tfout
 
       - name: Print Terraform Outputs
         run: |
