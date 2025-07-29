@@ -8,7 +8,9 @@
     "**/dist": true,
     "**/.terraform.tfstate": true,
     "**/.terraform.tfstate.backup": true,
-    "**/.terraform.tfstate.lock.info": true
+    "**/.terraform.tfstate.lock.info": true,
+    "**/terraform.tfstate": true,
+    "**/terraform.tfstate.backup": true,
 
   },
   "chat.mcp.discovery.enabled": true,
