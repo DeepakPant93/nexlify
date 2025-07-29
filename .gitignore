@@ -228,3 +228,4 @@ terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
 .terraform.tfvars.json
+.DS_Store
