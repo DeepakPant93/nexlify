@@ -54,7 +54,7 @@ cd nexlify
 ```
 
 
-### Running the Backend
+### Running the Servers
 
 To start the services locally using Docker Compose:
 
@@ -62,8 +62,8 @@ To start the services locally using Docker Compose:
 docker-compose up --build
 ```
 
-- Data Ingestion service available at `http://localhost:8000`.
-- AI Agentics service available at `http://localhost:8001`.
+- Data Ingestion service available at `http://localhost:7860`.
+- AI Agentics service available at `http://localhost:8000`.
 
 
 ## Future Enhancements
