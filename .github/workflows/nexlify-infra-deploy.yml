@@ -35,4 +35,20 @@ jobs:
           echo "Public VM IP: $(terraform output -raw public_vm_ip)"
           echo "Private VM Private IP: $(terraform output -raw private_vm_private_ip)"
           echo "VNet ID: $(terraform output -raw vnet_id)"
+          echo "PUBLIC_VM_PUBLIC_IP=$(terraform output -raw public_vm_ip)" >> $GITHUB_ENV
+          echo "PRIVATE_VM_PRIVATE_IP=$(terraform output -raw private_vm_private_ip)" >> $GITHUB_ENV
 
+
+      - name: Set PUBLIC_VM_PUBLIC_IP secret
+        uses: gliech/create-github-secret-action@v1
+        with:
+          name: PUBLIC_VM_PUBLIC_IP
+          value: ${{ env.PUBLIC_VM_PUBLIC_IP }}
+          pa_token: ${{ secrets.GH_PAT }}
+
+      - name: Set PRIVATE_VM_PRIVATE_IP secret
+        uses: gliech/create-github-secret-action@v1
+        with:
+          name: PRIVATE_VM_PRIVATE_IP
+          value: ${{ env.PRIVATE_VM_PRIVATE_IP }}
+          pa_token: ${{ secrets.GH_PAT }}
