@@ -25,4 +25,4 @@ jobs:
         run: terraform init
 
       - name: Terraform Destroy
-        run: terraform apply -destroy -var="admin_password=${{ secrets.APP_VM_PASSWORD }}" -var="client_id=${{ secrets.ARM_CLIENT_ID }}" -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}" --auto-approve
+        run: terraform apply -destroy -var="admin_password=${{ secrets.APP_VM_PASSWORD }}" -var="client_id=${{ secrets.ARM_CLIENT_ID }}" -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}"
