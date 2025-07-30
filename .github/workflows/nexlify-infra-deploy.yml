@@ -28,7 +28,7 @@ jobs:
         run: terraform plan -out=plan.tfout -var="admin_password=${{ secrets.APP_VM_PASSWORD }}" -var="client_id=${{ secrets.ARM_CLIENT_ID }}" -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}"
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve plan.tfout
+        run: terraform apply --auto-approve plan.tfout
 
       - name: Print Terraform Outputs
         run: |
