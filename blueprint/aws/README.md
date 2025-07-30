@@ -1,4 +1,4 @@
-# Nexlify Terraform Infrastructure Module
+# Nexlify Terraform Infrastructure Module (AWS SPecific)
 
 This Terraform module provisions AWS infrastructure for the [Nexlify](https://github.com/DeepakPant93/nexlify) project - a Retrieval-Augmented Generation (RAG) AI chatbot integrated with GitHub Copilot.
 

@@ -40,7 +40,7 @@ module "vpc" {
   cidr = var.vpc_cidr
 
   # azs             = data.aws_availability_zones.available.names
-  azs            = local.selected_azs
+  azs             = local.selected_azs
   public_subnets  = var.public_subnet_cidrs
   private_subnets = var.private_subnet_cidrs
 

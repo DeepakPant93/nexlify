@@ -1,0 +1,54 @@
+name: Deploy Nexlify Infrastructure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: blueprint/azure
+    env:
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}  # Your Terraform Cloud team API token secret
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.x"  # Match your required_version
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=plan.tfout -var="admin_password=${{ secrets.APP_VM_PASSWORD }}" -var="client_id=${{ secrets.ARM_CLIENT_ID }}" -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}"
+
+      - name: Terraform Apply
+        run: terraform apply plan.tfout
+
+      - name: Print Terraform Outputs
+        run: |
+          echo "Public VM IP: $(terraform output -raw public_vm_ip)"
+          echo "Private VM Private IP: $(terraform output -raw private_vm_private_ip)"
+          echo "VNet ID: $(terraform output -raw vnet_id)"
+          echo "PUBLIC_VM_PUBLIC_IP=$(terraform output -raw public_vm_ip)" >> $GITHUB_ENV
+          echo "PRIVATE_VM_PRIVATE_IP=$(terraform output -raw private_vm_private_ip)" >> $GITHUB_ENV
+
+
+      - name: Set PUBLIC_VM_PUBLIC_IP secret
+        uses: gliech/create-github-secret-action@v1
+        with:
+          name: PUBLIC_VM_PUBLIC_IP
+          value: ${{ env.PUBLIC_VM_PUBLIC_IP }}
+          pa_token: ${{ secrets.GH_PAT }}
+
+      - name: Set PRIVATE_VM_PRIVATE_IP secret
+        uses: gliech/create-github-secret-action@v1
+        with:
+          name: PRIVATE_VM_PRIVATE_IP
+          value: ${{ env.PRIVATE_VM_PRIVATE_IP }}
+          pa_token: ${{ secrets.GH_PAT }}
