@@ -29,3 +29,8 @@ jobs:
             -p 8000:8000 \
             -e MODEL_API_KEY=${{ secrets.MODEL_API_KEY }} \
             deepak93p/nexlify-ai-agentics-server
+          
+    - name: Notify deployment success
+      run: |
+        echo "Nexlify AI Agentics Server deployed successfully on VM with IP: ${{ secrets.PUBLIC_VM_PUBLIC_IP }}"
+        echo "Access the server at http://${{ secrets.PUBLIC_VM_PUBLIC_IP }}:8000/docs"
