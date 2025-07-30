@@ -2,20 +2,13 @@ name: Destroy Nexlify Infrastructure
 
 on:
   workflow_dispatch:
-    inputs:
-      workspace:
-        description: "Select Terraform Cloud workspace to destroy"
-        required: false
-        default: "dev"
-        type: choice
-        options:
-          - dev
-          - uat
-          - prod
 
 jobs:
   destroy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: blueprint/azure    
     env:
       TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}  # Your Terraform Cloud team API token secret
 
@@ -27,10 +20,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.6.x"  # Match your required_version
-
-      - name: Select Terraform workspace
-        run: |
-          terraform workspace select ${{ github.event.inputs.workspace }} || terraform workspace new ${{ github.event.inputs.workspace }}
 
       - name: Terraform Init
         run: terraform init
