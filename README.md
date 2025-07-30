@@ -80,8 +80,8 @@ docker-compose up --build
 
 ## Contributors
 
-- Deepak Pant (@DeepakPant93)
-- Dewasheesh Rana (@drana3)
+- [Deepak Pant](https://github.com/DeepakPant93)
+- [Dewasheesh Rana](https://github.com/drana3)
 
 ## Acknowledgements
 
