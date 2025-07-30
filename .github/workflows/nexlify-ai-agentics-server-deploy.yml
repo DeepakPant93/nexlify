@@ -11,7 +11,7 @@ jobs:
     - name: Run container on Azure VM
       uses: appleboy/ssh-action@v1.0.0
       with:
-        host: ${{ secrets.APP_VM_HOST }}
+        host: ${{ secrets.PUBLIC_VM_PUBLIC_IP }}
         username: ${{ secrets.APP_VM_USER }}
         password: ${{ secrets.APP_VM_PASSWORD }}
         port: 22
