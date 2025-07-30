@@ -39,18 +39,16 @@ jobs:
           echo "PRIVATE_VM_PRIVATE_IP=$(terraform output -raw private_vm_private_ip)" >> $GITHUB_ENV
 
 
-      - name: Set PUBLIC_VM_PUBLIC_IP variable
-        uses: mmoyaferrer/set-github-variable@v1.0.0
+      - name: Set PUBLIC_VM_PUBLIC_IP secret
+        uses: gliech/create-github-secret-action@v1
         with:
           name: PUBLIC_VM_PUBLIC_IP
           value: ${{ env.PUBLIC_VM_PUBLIC_IP }}
-          repository: ${{ github.repository }}
-          token: ${{ secrets.GH_PAT }}
+          pa_token: ${{ secrets.GH_PAT }}
 
-      - name: Set PRIVATE_VM_PRIVATE_IP variable
-        uses: mmoyaferrer/set-github-variable@v1.0.0
+      - name: Set PRIVATE_VM_PRIVATE_IP secret
+        uses: gliech/create-github-secret-action@v1
         with:
           name: PRIVATE_VM_PRIVATE_IP
           value: ${{ env.PRIVATE_VM_PRIVATE_IP }}
-          repository: ${{ github.repository }}
-          token: ${{ secrets.GH_PAT }}
+          pa_token: ${{ secrets.GH_PAT }}
