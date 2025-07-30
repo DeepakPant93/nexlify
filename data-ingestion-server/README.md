@@ -61,6 +61,14 @@ Ensure Qdrant is also running via Docker or cloud.
 
 ---
 
+## DockerHub
+
+The official Docker image for the Nexlify Data Ingestion Server is available on DockerHub:
+
+📦 **[deepak93p/nexlify-data-ingestion-server](https://hub.docker.com/r/deepak93p/nexlify-data-ingestion-server)**
+
+---
+
 ## 🔍 API Endpoints
 
 ### 📥 Upload File
