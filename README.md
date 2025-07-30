@@ -62,8 +62,8 @@ To start the services locally using Docker Compose:
 docker-compose up --build
 ```
 
-- Data Ingestion service available at `http://localhost:7860`.
-- AI Agentics service available at `http://localhost:8000`.
+- Data Ingestion service available at [http://localhost:7860/docs](http://localhost:7860/docs)
+- AI Agentics service available at [http://localhost:8000/docs](http://localhost:8000/docs)
 
 
 ## Future Enhancements
