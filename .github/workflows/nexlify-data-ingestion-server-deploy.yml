@@ -1,0 +1,43 @@
+name: Deploy Nexlify Data Ingestion Server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run container on Azure VM
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.PUBLIC_VM_PUBLIC_IP }}
+        username: ${{ secrets.APP_VM_USER }}
+        password: ${{ secrets.APP_VM_PASSWORD }}
+        port: 22
+        script: |
+          # Check if Docker network 'nexlify' exists, create if not
+          if ! docker network ls --format '{{ .Name }}' | grep -wq 'nexlify'; then
+            docker network create nexlify
+          fi
+
+          # Stop and remove existing container if it exists
+          docker stop nexlify-data-ingestion-server || true
+          docker rm nexlify-data-ingestion-server || true
+
+          # Pull latest image (optional, if not local)
+          docker pull deepak93p/nexlify-data-ingestion-server
+
+          # Run the container
+          docker run -d \
+            --name nexlify-data-ingestion-server \
+            -p 7860:7860 \
+            --network nexlify \
+            -e GEMINI_API_KEY=${{ secrets.MODEL_API_KEY }} \
+            -e QDRANT_HOST=${{ secrets.PRIVATE_VM_PRIVATE_IP }} \
+            deepak93p/nexlify-data-ingestion-server
+
+    - name: Notify deployment success
+      run: |
+        echo "Nexlify Data Ingestion Server deployed successfully on VM with IP: ${{ secrets.PUBLIC_VM_PUBLIC_IP }}"
+        echo "Access the server at http://${{ secrets.PRIVATE_VM_PRIVATE_IP }}:7860/docs"
