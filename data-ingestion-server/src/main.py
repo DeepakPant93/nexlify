@@ -1,4 +1,3 @@
-import nltk
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.ingest_view import router as ingest_router
@@ -22,14 +21,7 @@ app.add_middleware(
 app.include_router(ingest_router, prefix="/ingest")
 
 
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    print("Downloading NLTK data...")
-    nltk.download('punkt')
-    nltk.download('wordnet')
-    nltk.download('omw-1.4')
-    nltk.download('punkt_tab')
+
 
 
 @app.get("/")

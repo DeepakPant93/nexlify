@@ -1,5 +1,6 @@
 import logging
 import tempfile
+from typing import List
 from fastapi import UploadFile
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfReader
@@ -37,7 +38,7 @@ async def extract_text_from_file(file: UploadFile) -> str:
 
 def extract_text_from_pdf(pdf_bytes: bytes) -> str:
     """
-    Extract text from PDF bytes, including OCR for image-based pages.
+    Extract text from PDF bytes, with OCR fallback for image-based pages.
     """
     with tempfile.TemporaryDirectory() as path:
         pdf_path = os.path.join(path, "temp.pdf")
@@ -45,20 +46,26 @@ def extract_text_from_pdf(pdf_bytes: bytes) -> str:
             f.write(pdf_bytes)
 
         reader = PdfReader(pdf_path)
-        text_pages = []
-        for page in reader.pages:
-            text = page.extract_text()
-            if text and text.strip():
-                text_pages.append(text)
-            else:
-                # OCR fallback for image-based pages
-                images = convert_from_path(pdf_path, first_page=reader.pages.index(
-                    page)+1, last_page=reader.pages.index(page)+1)
-                for img in images:
-                    text_pages.append(pytesseract.image_to_string(img))
+        text_pages: List[str] = []
 
-        return "\n".join(text_pages)
+        for page_number, page in enumerate(reader.pages, start=1):
+            try:
+                text = page.extract_text()
+                if text and text.strip():
+                    text_pages.append(text)
+                else:
+                    # OCR fallback for image-based page
+                    images = convert_from_path(
+                        pdf_path, first_page=page_number, last_page=page_number)
+                    for img in images:
+                        ocr_text = pytesseract.image_to_string(img)
+                        if ocr_text.strip():
+                            text_pages.append(ocr_text)
+            except Exception as e:
+                text_pages.append(
+                    f"[Error processing page {page_number}]: {e}")
 
+        return "\n\n".join(text_pages)
 
 def extract_text_from_html(html_bytes: bytes) -> str:
     try:
