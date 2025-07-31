@@ -66,6 +66,22 @@ _This command will output JSON with the required variables:_
 
 **_Keep your `clientSecret` safe!_**
 
+
+## GitHub Repository Secrets for CI/CD Setup
+
+Add these secrets in your GitHub repo settings under Secrets and variables > Actions. They're needed for Azure, VMs, Docker, GitHub, Gemini, and Terraform integrations.
+
+- **APP_VM_PASSWORD**: Password for both VMs.
+- **APP_VM_USER**: VM username (default: `azureuser`).
+- **ARM_CLIENT_ID**: Azure Service Principal Client ID (generated using `az ad sp create-for-rbac ...` command, copy `clientId`).
+- **ARM_CLIENT_SECRET**: Azure Service Principal secret (generated using `az ad sp create-for-rbac ...` command output).
+- **DOCKER_PASSWORD**: Docker Hub Personal Access Token (generate from https://app.docker.com/accounts/<username>/settings/personal-access-tokens).
+- **DOCKER_USERNAME**: Your Docker Hub username.
+- **GH_PAT**: GitHub PAT with `repo` scope (used to set VM IP secrets, such as PRIVATE_VM_PRIVATE_IP and PUBLIC_VM_PUBLIC_IP).
+- **MODEL_API_KEY**: Gemini API key (create one at https://aistudio.google.com/app/apikey).
+- **TF_API_TOKEN**: Terraform Cloud API token (generate one at https://app.terraform.io/app/settings/tokens).
+
+
 ## Deploying with Terraform Cloud
 
 This repo is set up to use Terraform Cloud for state management. In `main.tf`, the backend is configured like so:
