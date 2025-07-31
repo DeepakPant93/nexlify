@@ -17,6 +17,8 @@ The MCP server to connect your AI client, such as GitHub Copilot or ChatGPT, to 
 
 For more in-depth information on each component, please consult their individual README files located in the directories linked above. To explore Nexlify further, check out the [Nexlify Docs](docs/README.md).
 
+For a complete overview of the infrastructure setup, including AWS and Azure configurations, refer to the [blueprint](./blueprint/README.md) directory.
+
 ## Features
 
 - **RAG-based querying**: Retrieves and generates responses from vectorized data using embeddings and Qdrant database.
