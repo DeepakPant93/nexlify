@@ -11,7 +11,7 @@ from tenacity import retry, wait_fixed, stop_after_attempt, retry_if_exception_t
 from google.auth.transport.requests import Request
 from google.oauth2.service_account import Credentials
 import google.generativeai as genai
-from service.embedding_service import GeminiEmbedder
+from ..service.embedding_service import GeminiEmbedder
 
 # --- Configuration ---
 CONFLUENCE_BASE_URL = os.getenv("CONFLUENCE_BASE_URL")

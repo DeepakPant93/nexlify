@@ -1,6 +1,7 @@
 from fastapi import FastAPI
+from .api.ingest_view import router as ingest_router
 from fastapi.middleware.cors import CORSMiddleware
-from api.ingest_view import router as ingest_router
+
 
 app = FastAPI(
     title="NEXLIFY Ingestion API",

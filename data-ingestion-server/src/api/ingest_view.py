@@ -1,7 +1,7 @@
 import os
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Filter, FieldCondition, MatchValue
-from core.ingest_controller import get_embedding
+from ..core.ingest_controller import get_embedding
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query
 from typing import List
@@ -10,10 +10,11 @@ from uuid import uuid4
 import logging
 from fastapi import UploadFile
 from pydantic import BaseModel
-from utils.ingest_util import extract_text_from_file
+from ..utils.ingest_util import extract_text_from_file
 from fastapi import APIRouter, Depends, HTTPException, status
-from core.ingest_controller import fetch_and_ingest_confluence_pages, get_embedding, ingest_file_to_qdrant
-from models.embedding_model import EmbeddingRequest, EmbeddingResponse, SearchResult, SemanticSearchRequest, SemanticSearchResponse
+
+from ..models.embedding_model import EmbeddingRequest, EmbeddingResponse, SearchResult, SemanticSearchRequest, SemanticSearchResponse
+from ..core.ingest_controller import fetch_and_ingest_confluence_pages, get_embedding, ingest_file_to_qdrant
 
 router = APIRouter()
 

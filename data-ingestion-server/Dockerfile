@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # System dependencies
 RUN apt-get update && apt-get install -y \
@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
 
 # Set workdir
 WORKDIR /app
+
+# Add this to make relative imports work
+ENV PYTHONPATH=/app/src
 
 # Copy and install requirements
 COPY requirements.txt .

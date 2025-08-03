@@ -1,6 +1,8 @@
 services:
   data-ingestion-server:
-    build: ./data-ingestion-server
+    build: 
+      context: ./data-ingestion-server
+      dockerfile: Dockerfile
     ports:
       - "7860:7860"
     env_file: ./data-ingestion-server/.env
@@ -15,7 +17,7 @@ services:
       - "8000:8000"
     env_file: ./nexlify-ai-agentics-server/.env
     environment:
-      - NEXLIFY_DATA_INGESTION_SERVICE_BASE_URI=http://data-ingestion-server:7860
+      - NEXLIFY_DATA_INGESTION_SERVICE_BASE_URI=http://data-ingestion-server:7860/ingest
     depends_on:
       - data-ingestion-server
 
