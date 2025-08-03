@@ -16,7 +16,7 @@ ERROR_MESSAGE = "Please check the inputs and try again. If the issue persists, c
 async def search(request: SearchRequest):
 
     try:
-        output = NexlifyAiAgenticsServer().crew().kickoff(inputs={"topic": request.query})
+        output = NexlifyAiAgenticsServer().crew().kickoff(inputs={"query": request.query})
     except Exception:
         output = None
 

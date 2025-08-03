@@ -25,6 +25,8 @@ crewai install
 
 - `MODEL=gemini/gemini-1.5-flash`
 - `MODEL_API_KEY=<model_api_key>` # Your API key here. Generate a new API key for the GEMINI model from the [AI Studio](https://aistudio.google.com/app/apikey) website.
+- `NEXLIFY_DATA_INGESTION_SERVICE_BASE_URI`=http://localhost:7860 # Base URI for the Nexlify Data Ingestion Service
+- `SERPER_API_KEY`=<serper_api_key> # Generate your Serper API key from the [Serper API](https://serper.dev/api-keys) website.
 
 - Modify `src/nexlify_ai_agentics_server/config/agents.yaml` to define your agents
 - Modify `src/nexlify_ai_agentics_server/config/tasks.yaml` to define your tasks
