@@ -12,3 +12,4 @@ python-multipart
 PyPDF2
 pdf2image
 pytesseract
+pycryptodome
