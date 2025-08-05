@@ -41,3 +41,4 @@ jobs:
       run: |
         echo "Nexlify Data Ingestion Server deployed successfully on VM with IP: ${{ secrets.PUBLIC_VM_PUBLIC_IP }}"
         echo "Access the server at http://${{ secrets.PRIVATE_VM_PRIVATE_IP }}:7860/docs"
+        echo "Access the server at [http://${{ secrets.PRIVATE_VM_PRIVATE_IP }}:7860/docs](http://${{ secrets.PRIVATE_VM_PRIVATE_IP }}:7860/docs)" >> $GITHUB_STEP_SUMMARY
