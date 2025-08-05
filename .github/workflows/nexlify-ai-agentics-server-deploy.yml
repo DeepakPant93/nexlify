@@ -2,6 +2,7 @@ name: Deploy Nexlify AI Agentics Server
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   deploy:

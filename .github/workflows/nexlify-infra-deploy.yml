@@ -2,6 +2,7 @@ name: Deploy Nexlify Infrastructure
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   deploy:

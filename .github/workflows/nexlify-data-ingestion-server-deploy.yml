@@ -2,6 +2,7 @@ name: Deploy Nexlify Data Ingestion Server
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   deploy:

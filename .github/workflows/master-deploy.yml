@@ -1,0 +1,16 @@
+name: Master Deployment Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-nexlify-infra:
+    uses: ./.github/workflows/nexlify-infra-deploy.yml
+
+  deploy-nexlify-data-ingestion:
+    needs: deploy-nexlify-infra
+    uses: ./.github/workflows/nexlify-data-ingestion-server-deploy.yml
+
+  deploy-nexlify-ai-agentics-server:
+    needs: deploy-nexlify-data-ingestion
+    uses: ./.github/workflows/nexlify-ai-agentics-server-deploy.yml
